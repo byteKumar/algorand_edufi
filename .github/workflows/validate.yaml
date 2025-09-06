@@ -1,0 +1,14 @@
+name: Pull Request validation
+
+on: [pull_request]
+
+
+jobs:
+  algorand_edufi-contracts-ci:
+    name: Run algorand_edufi-contracts validation
+    uses: ./.github/workflows/algorand_edufi-contracts-ci.yaml
+
+  algorand_edufi-frontend-ci:
+    name: Run algorand_edufi-frontend validation
+    uses: ./.github/workflows/algorand_edufi-frontend-ci.yaml
+

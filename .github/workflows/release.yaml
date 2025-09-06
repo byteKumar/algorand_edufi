@@ -1,0 +1,38 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - 'docs/**'
+      - '**.md'
+      - '.vscode/**'
+      - '.idea/**'
+
+permissions:
+  contents: read
+  packages: read
+
+jobs:
+  algorand_edufi-contracts-validate:
+    name: Run algorand_edufi-contracts release
+    secrets: inherit
+    uses: ./.github/workflows/algorand_edufi-contracts-ci.yaml
+
+  algorand_edufi-contracts-release:
+    name: Run algorand_edufi-contracts release
+    secrets: inherit
+    uses: ./.github/workflows/algorand_edufi-contracts-cd.yaml
+    needs: algorand_edufi-contracts-validate
+
+  algorand_edufi-frontend-validate:
+    name: Run algorand_edufi-frontend release
+    secrets: inherit
+    uses: ./.github/workflows/algorand_edufi-frontend-ci.yaml
+
+  algorand_edufi-frontend-release:
+    name: Run algorand_edufi-frontend release
+    secrets: inherit
+    uses: ./.github/workflows/algorand_edufi-frontend-cd.yaml
+    needs: algorand_edufi-frontend-validate
